@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     role : {
         type : String,
-        enum : ["Admin", "Sale Representative" , "Customer"],
+        enum : ["Admin", "Sale Representative" , "Manager"],
         required : true,
         message : `{VALUE} is not supported`,
     },
