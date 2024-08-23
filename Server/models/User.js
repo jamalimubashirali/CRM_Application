@@ -13,9 +13,10 @@ const userSchema = new mongoose.Schema({
         required : true, 
         unique : true,
     }, 
-    password : {
-        type : String,
-        required : true,
+    passwordHash: {
+        type: String,
+        required: true,
+        maxlength : [100 , `Username should not be longer than 15 characters`],
     },
     role : {
         type : String,
@@ -32,5 +33,9 @@ const userSchema = new mongoose.Schema({
         default : Date.now()
     }
 });
+
+userSchema.methods.comparePassword = function(password) {
+    return bcrypt.compareSync(password, this.passwordHash);
+  };
 
 export default mongoose.model("User" , userSchema);
