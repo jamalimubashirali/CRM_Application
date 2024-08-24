@@ -35,3 +35,45 @@ export const getCustomers = async (req , res) => {
         console.log(error);
     }
 }
+
+
+export const updateCustomerData = async (req , res) => {
+    try {
+        const {id : customerID} = req.params;
+        const updatedCustomerData = req.body;
+        const updateCustomer = await Customer.findByIdAndUpdate( {_id : customerID} , updatedCustomerData , {
+            new : true,
+            runValidators : true
+        });
+
+        if (!updateCustomer) {
+            res.status(404).json({
+                msg : `Customer with id ${customerID} is not Found`
+            })
+        }
+
+        res.status(200).json({
+            msg :  `Customer with id ${customerID} is updatesd`,
+            data : updateCustomer
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteCustomer = async (req , res) => {
+    try {
+        const {id : customerId} = req.params;
+        const customer = await Customer.findByIdAndDelete({_id : customerId});
+        if(!customer) {
+            res.status(404).json({
+                msg : `Customer with id ${customerId} is not found`
+            })
+        }
+        res.status(200).json({
+            msg : `Customer with id ${customer._id} is deleted`
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}

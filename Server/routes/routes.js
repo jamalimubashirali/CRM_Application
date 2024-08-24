@@ -1,6 +1,6 @@
 import express from 'express';
 import { registerUser, userLogin } from '../controllers/userLoginAndRegister.js';
-import { createCustomer, getCustomers } from '../controllers/customer.js';
+import { createCustomer, deleteCustomer, getCustomers, updateCustomerData } from '../controllers/customer.js';
 
 const router = express.Router();
 
@@ -9,9 +9,11 @@ router.post('/register', registerUser);
 router.get('/login' , userLogin);
 
 // Customer CRUD Routes
-
 router.get('/customer' , getCustomers);
 router.post('/customer' , createCustomer);
+router.patch('/customer/:id', updateCustomerData);
+router.delete('/customer/:id' , deleteCustomer);
+
 
 
 export default router;

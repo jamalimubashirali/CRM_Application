@@ -1,7 +1,7 @@
 import express from 'express';
 import { connectDB } from './db/connectDB.js';
 import process from 'process';
-import router from './routes/registration.js';
+import router from './routes/routes.js';
 import {notFound} from './middleware/not-found.js';
 import { errorHandlerMiddleware } from './middleware/error-handler.js'
 // import { errors } from 'express-async-errors';
