@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const interactionSchema = new mongoose.Schema({
     customerID : {
-
+        
     }, 
     interactionType : {
         type : String,
