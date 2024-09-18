@@ -1,10 +1,12 @@
-import { SideBarNavigaion } from "./components";
+import { SideBarNavigaion , Login, Registration} from "./components";
 
 function App() {
   
   return (
     <>
-      <SideBarNavigaion />
+      {/* <SideBarNavigaion /> */}
+      {/* <Login /> */}
+      <Registration />
     </>
   );
 }
