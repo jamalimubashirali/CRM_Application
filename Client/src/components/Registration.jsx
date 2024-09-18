@@ -1,11 +1,32 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Registration = () => {
   const [username, setUsername] = useState("");
-  const [passowrd, setPassword] = useState("");
-  const [seletedRole, setSelectedRole] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  console.log(username,userEmail, passowrd, seletedRole);
+  const [email, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setSelectedRole] = useState("");
+
+  console.log(username , email , role , password);
+  const registerUser = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/register", {
+        username,
+        email,
+        password,
+        role,
+      });
+      if (response.status == 201) {
+        console.log(response.data.msg);
+      } else {
+        console.error("Registration failed:", response.data.error);
+      }
+    } catch (error) {
+      console.error("Registration Error:", error);
+    }
+  };
+
   return (
     <div className="w-1/2 mx-auto my-20 p-10 flex flex-col bg-slate-500 rounded-xl">
       <label htmlFor="username">Username</label>
@@ -26,8 +47,8 @@ const Registration = () => {
       />
       <label htmlFor="password">Password</label>
       <input
-        type="text"
-        name="passowrd"
+        type="password" // Change type to "password"
+        name="password"
         id="password"
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -38,13 +59,14 @@ const Registration = () => {
         onChange={(e) => setSelectedRole(e.target.value)}
       >
         <option value="default">Please Select your Role</option>
-        <option value="admin">Admin</option>
-        <option value="sale representative">Sales Representative</option>
+        <option value="Admin">Admin</option>
+        <option value="Sales Representative">Sales Representative</option>
         <option value="Manager">Manager</option>
       </select>
       <button
         className="p-4 my-3 rounded-xl bg-slate-700 text-white w-1/2 mx-auto"
         type="submit"
+        onClick={registerUser}
       >
         Register
       </button>

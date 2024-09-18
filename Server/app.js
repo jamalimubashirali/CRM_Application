@@ -4,19 +4,16 @@ import process from 'process';
 import router from './routes/routes.js';
 import {notFound} from './middleware/not-found.js';
 import { errorHandlerMiddleware } from './middleware/error-handler.js'
-// import { errors } from 'express-async-errors';
-// dotenv.config();
-
-// Database Connection String
-// const connectionString = "mongodb+srv://jamalimubashirali:jamali786@cluster0.ahmnu.mongodb.net/MERN_Fellowship_FProject?retryWrites=true&w=majority&appName=Cluster0"
+import cors from 'cors'
 
 // Local Port
-const port = process.env.port || 5000
+const port = process.env.port || 3000
 // App Setup
 const app = express();
 
 //Middlewares 
 app.use(express.json());
+app.use(cors());
 app.use("/api", router);
 
 // Error Handling Middlewares

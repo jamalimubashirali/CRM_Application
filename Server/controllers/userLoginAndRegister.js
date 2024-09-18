@@ -11,12 +11,10 @@ export const registerUser = async (req , res) => {
                 msg : "The User already Exists"
             });
         }
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password , salt);
         const  user = new User({
             username, 
             email,
-            passwordHash,
+            password,
             role
         });
         await User.create(user);

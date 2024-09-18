@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true,
         trim : true,
-        maxlength : [15 , `Username should not be longer than 15 characters`],
+        maxlength : [30 , `Username should not be longer than 15 characters`],
         unique : true
     },
     email : {
@@ -13,14 +13,14 @@ const userSchema = new mongoose.Schema({
         required : true, 
         unique : true,
     }, 
-    passwordHash: {
+    password: {
         type: String,
         required: true,
         maxlength : [100 , `Username should not be longer than 15 characters`],
     },
     role : {
         type : String,
-        enum : ["Admin", "Sale Representative" , "Manager"],
+        enum : ["Admin", "Sales Representative" , "Manager"],
         required : true,
         message : `{VALUE} is not supported`,
     },
