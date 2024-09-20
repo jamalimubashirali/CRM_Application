@@ -5,8 +5,8 @@ function App() {
   return (
     <>
       {/* <SideBarNavigaion /> */}
-      {/* <Login /> */}
-      <Registration />
+      <Login />
+      {/* <Registration /> */}
     </>
   );
 }

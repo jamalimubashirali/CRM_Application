@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Registration = () => {
+  // States of input values
   const [username, setUsername] = useState("");
   const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setSelectedRole] = useState("");
-
-  console.log(username , email , role , password);
+  const [role, setSelectedRole] = useState("Please Select the Role");
+  
+  // Function is called to send data to database for User Registration
   const registerUser = async (e) => {
     e.preventDefault();
     try {
@@ -22,6 +23,10 @@ const Registration = () => {
       } else {
         console.error("Registration failed:", response.data.error);
       }
+      setPassword("");
+      setSelectedRole("Please Select the Role");
+      setUserEmail("");
+      setUsername("");
     } catch (error) {
       console.error("Registration Error:", error);
     }
@@ -31,6 +36,7 @@ const Registration = () => {
     <div className="w-1/2 mx-auto my-20 p-10 flex flex-col bg-slate-500 rounded-xl">
       <label htmlFor="username">Username</label>
       <input
+        value={username}
         className=""
         type="text"
         name="username"
@@ -39,6 +45,7 @@ const Registration = () => {
       />
       <label htmlFor="email">Email</label>
       <input
+        value={email}
         className=""
         type="text"
         name="email"
@@ -47,6 +54,7 @@ const Registration = () => {
       />
       <label htmlFor="password">Password</label>
       <input
+        value={password}
         type="password" // Change type to "password"
         name="password"
         id="password"
@@ -54,6 +62,7 @@ const Registration = () => {
       />
       <label htmlFor="role">Select Role</label>
       <select
+        value={role}
         name="roles"
         id="roles"
         onChange={(e) => setSelectedRole(e.target.value)}
