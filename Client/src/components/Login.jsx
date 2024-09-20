@@ -4,9 +4,9 @@ import axios from "axios";
 const Login = () => {
   // Variables required for input States
   const [username, setUsername] = useState("");
-  const [passowrd, setPassword] = useState("");
-  const [seletedRole, setSelectedRole] = useState("");
-  console.log(username, passowrd, seletedRole);
+  const [password, setPassword] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+  console.log(username , password , selectedRole);
 
   // Login credentials verification function
   const login = async (e) => {
@@ -14,26 +14,29 @@ const Login = () => {
     try {
       const response = await axios.post("/api/login", {
         username,
-        passowrd,
-        seletedRole,
+        password,
+        selectedRole,
       });
+
       if (response.status == 200) {
-        console.log(response.data.msg);
+        alert(response.data.message); // Assuming your backend returns a success message
       } else {
-        console.log(response.data.error);
+        alert(response.data.error || "Login Failed"); // Handle specific error messages or default message
       }
+
       setPassword("");
       setUsername("");
       setSelectedRole("default");
     } catch (error) {
-      console.log(error);
+      alert("An error occurred during login. Please try again.");
+      console.error("Login Error:", error);
     }
   };
 
   // Front-End Code
   return (
     <div className="w-1/3 mx-auto my-10 p-10 flex flex-col bg-slate-200 shadow-md rounded-xl">
-      <h1 className="my-3 text-center text-3xl font-bold">LOGIN</h1>
+      <h1 className="my-3 text-center text-3xl font-bold">{"login".toUpperCase()}</h1>
       <label htmlFor="username" className="">
         Username
       </label>
@@ -49,33 +52,34 @@ const Login = () => {
         Password
       </label>
       <input
-        value={passowrd}
+        value={password}
         className="p-2 my-1  outline-slate-300 border-2 border-green-600 rounded-xl"
         type="text"
         name="passowrd"
         id="password"
         onChange={(e) => setPassword(e.target.value)}
       />
+      <span className="ml-auto text-green-600 underline text-sm cursor-pointer">{"Forgot Password"}</span>
       <label htmlFor="role" className="">
         Select Role
       </label>
       <select
         className="p-2 my-1  outline-slate-300 border-2 border-green-600 rounded-xl"
-        value={seletedRole}
+        value={selectedRole}
         name="roles"
         id="roles"
         onChange={(e) => setSelectedRole(e.target.value)}
       >
         <option value="default">Please Select your Role</option>
-        <option value="admin">Admin</option>
-        <option value="sale representative">Sales Representative</option>
+        <option value="Admin">Admin</option>
+        <option value="sale Representative">Sales Representative</option>
         <option value="Manager">Manager</option>
       </select>
       <button
         className="p-4 my-3 rounded-xl bg-green-600 text-white w-1/2 mx-auto
         hover:text-black hover:bg-slate-300"
         type="submit"
-        onSubmit={login}
+        onClick={login}
       >
         Login
       </button>

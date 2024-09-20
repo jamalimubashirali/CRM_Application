@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Login and Registration Routes
 router.post('/register', registerUser);
-router.get('/login' , userLogin);
+router.post('/login' , userLogin);
 
 // Customer CRUD Routes
 router.get('/customer' , getCustomers);

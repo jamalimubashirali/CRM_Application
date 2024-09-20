@@ -6,7 +6,7 @@ function App() {
     <>
       {/* <SideBarNavigaion /> */}
       <Login />
-      {/* <Registration /> */}
+      <Registration />
     </>
   );
 }
