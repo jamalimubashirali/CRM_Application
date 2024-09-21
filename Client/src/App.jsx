@@ -1,12 +1,39 @@
-import { SideBarNavigaion , Login, Registration} from "./components";
+import {
+  Login,
+  Registration,
+  Dashboard,
+  Tasks,
+  Leads,
+  Customer,
+} from "./components";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import Layout from "./Layout";
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/customers", element: <Customer /> },
+      { path: "/tasks", element: <Tasks /> },
+      { path: "/leads", element: <Leads /> },
+    ],
+  },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Registration /> },
+]);
 
 function App() {
-  
   return (
     <>
-      {/* <SideBarNavigaion /> */}
-      <Login />
-      <Registration />
+      <RouterProvider router={router} />
     </>
   );
 }

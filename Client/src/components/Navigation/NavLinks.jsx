@@ -1,8 +1,10 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-const NavLinks = ({ icon, linkText }) => {
+const NavLinks = ({ icon, linkText , toLink}) => {
   return (
-    <div className="min-w-56 px-3 py-2 rounded-xl cursor-pointer flex align-baseline gap-2 bg-blue-500 text-white">
+    <NavLink to={toLink} className={() => `min-w-56 px-3 py-2 rounded-xl cursor-pointer flex align-baseline gap-2 bg-blue-500 text-white`}>
+
       {icon}
 
       <h1 className="mr-auto">{linkText}</h1>
@@ -19,7 +21,7 @@ const NavLinks = ({ icon, linkText }) => {
           clipRule="evenodd"
         />
       </svg>
-    </div>
+    </NavLink>
   );
 };
 

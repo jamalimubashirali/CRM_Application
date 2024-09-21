@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Registration = () => {
   // States of input values
@@ -33,8 +34,8 @@ const Registration = () => {
   };
 
   return (
-    <div className="w-1/3 mx-auto my-20 p-10 flex flex-col bg-slate-200 rounded-xl shadow-md">
-      <h1 className="my-3 text-center text-3xl font-bold">
+    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mt-10 p-5 sm:p-8 md:p-10 flex flex-col bg-slate-200 rounded-xl shadow-md">
+      <h1 className="my-3 text-center text-2xl sm:text-3xl font-bold">
         {"Registration".toUpperCase()}
       </h1>
       <label htmlFor="username">Username</label>
@@ -62,7 +63,7 @@ const Registration = () => {
         placeholder="Create password"
         value={password}
         className="p-2 my-1 rounded-xl outline-slate-300 border-2 border-green-600"
-        type="password" // Change type to "password"
+        type="password"
         name="password"
         id="password"
         onChange={(e) => setPassword(e.target.value)}
@@ -83,7 +84,7 @@ const Registration = () => {
         <option value="Manager">Manager</option>
       </select>
       <button
-        className="p-4 my-3 rounded-xl bg-green-600 text-white w-1/2 mx-auto hover:bg-slate-300 hover:text-black"
+        className="p-3 sm:p-4 my-3 rounded-xl bg-green-600 text-white w-full sm:w-1/2 mx-auto hover:bg-slate-300 hover:text-black"
         type="submit"
         onClick={registerUser}
       >
@@ -91,7 +92,9 @@ const Registration = () => {
       </button>
       <p className="my-2 text-center text-sm">
         Have an Account?{" "}
-        <span className="text-green-600 cursor-pointer">Log In</span>
+        <Link className="text-green-600 hover:text-gray-400" to={"/login"}>
+          Log In
+        </Link>
       </p>
     </div>
   );

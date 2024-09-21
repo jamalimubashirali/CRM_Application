@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -6,7 +7,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
-  console.log(username , password , selectedRole);
+  console.log(username, password, selectedRole);
 
   // Login credentials verification function
   const login = async (e) => {
@@ -19,9 +20,9 @@ const Login = () => {
       });
 
       if (response.status == 200) {
-        alert(response.data.message); // Assuming your backend returns a success message
+        alert(response.data.message); 
       } else {
-        alert(response.data.error || "Login Failed"); // Handle specific error messages or default message
+        alert(response.data.error || "Login Failed"); 
       }
 
       setPassword("");
@@ -35,36 +36,45 @@ const Login = () => {
 
   // Front-End Code
   return (
-    <div className="w-1/3 mx-auto my-10 p-10 flex flex-col bg-slate-200 shadow-md rounded-xl">
-      <h1 className="my-3 text-center text-3xl font-bold">{"login".toUpperCase()}</h1>
+    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mt-10 p-3 sm:p-5 md:p-8 lg:p-10 flex flex-col bg-slate-200 shadow-md rounded-xl">
+      <h1 className="my-3 text-center text-2xl sm:text-3xl font-bold">
+        {"login".toUpperCase()}
+      </h1>
       <label htmlFor="username" className="">
         Username
       </label>
       <input
+        placeholder="Enter your username"
         value={username}
         className="p-2 my-1 outline-slate-300 border-2 border-green-600 rounded-xl"
         type="text"
         name="username"
-        id="password"
+        id="username"
         onChange={(e) => setUsername(e.target.value)}
       />
       <label htmlFor="password" className="">
         Password
       </label>
       <input
+        placeholder="Enter your password"
         value={password}
-        className="p-2 my-1  outline-slate-300 border-2 border-green-600 rounded-xl"
-        type="text"
-        name="passowrd"
+        className="p-2 my-1 outline-slate-300 border-2 border-green-600 rounded-xl"
+        type="password"
+        name="password"
         id="password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <span className="ml-auto text-green-600 underline text-sm cursor-pointer">{"Forgot Password"}</span>
+      <Link
+        className="ml-auto text-green-600 underline text-sm hover:text-gray-400"
+        to="/forgot-password"
+      >
+        {"Forgot Password"}
+      </Link>
       <label htmlFor="role" className="">
         Select Role
       </label>
       <select
-        className="p-2 my-1  outline-slate-300 border-2 border-green-600 rounded-xl"
+        className="p-2 my-1 outline-slate-300 border-2 border-green-600 rounded-xl"
         value={selectedRole}
         name="roles"
         id="roles"
@@ -76,7 +86,7 @@ const Login = () => {
         <option value="Manager">Manager</option>
       </select>
       <button
-        className="p-4 my-3 rounded-xl bg-green-600 text-white w-1/2 mx-auto
+        className="p-3 sm:p-4 my-3 rounded-xl bg-green-600 text-white w-full sm:w-1/2 mx-auto
         hover:text-black hover:bg-slate-300"
         type="submit"
         onClick={login}
@@ -85,7 +95,9 @@ const Login = () => {
       </button>
       <p className="text-center text-sm">
         Don't have an Account?{" "}
-        <span className="text-green-600 cursor-pointer">Create One.</span>
+        <Link className="text-green-600 hover:text-gray-400" to="/register">
+          Create One.
+        </Link>
       </p>
     </div>
   );
