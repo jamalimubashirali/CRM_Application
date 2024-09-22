@@ -35,10 +35,10 @@ export const userLogin = async (req, res) => {
     // To verify if the user exsits in the Database
     if (!user) {
       return res.status(404).json({ message: "User Not Found" });
-      // To verify the password of the user.
     }
+    // To verify the password of the user.
     const isMatch = (password == user.password) && (selectedRole == user.role);
-
+    // If password and Role are incorrect
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid Credentials" });
     }

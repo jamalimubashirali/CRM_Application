@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -7,8 +7,8 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
-  console.log(username, password, selectedRole);
 
+  const navigationToLayout = useNavigate();
   // Login credentials verification function
   const login = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const Login = () => {
       });
 
       if (response.status == 200) {
-        alert(response.data.message); 
+        navigationToLayout('/' , {state : response.data});
       } else {
         alert(response.data.error || "Login Failed"); 
       }
@@ -82,7 +82,7 @@ const Login = () => {
       >
         <option value="default">Please Select your Role</option>
         <option value="Admin">Admin</option>
-        <option value="sale Representative">Sales Representative</option>
+        <option value="Sales Representative">Sales Representative</option>
         <option value="Manager">Manager</option>
       </select>
       <button

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const NavLinks = ({ icon, linkText , toLink}) => {
   return (
-    <NavLink to={toLink} className={() => `min-w-56 px-3 py-2 rounded-xl cursor-pointer flex align-baseline gap-2 bg-blue-500 text-white`}>
+    <NavLink to={toLink} className={({isActive}) => `min-w-56 p-3 rounded-xl flex align-baseline gap-2  ${isActive ? 'bg-green-600 text-gray-100' : 'border-2 border-green-600 text-gray-600'}`}>
 
       {icon}
 
