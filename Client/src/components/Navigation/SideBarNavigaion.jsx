@@ -3,7 +3,7 @@ import NavLinks from "./NavLinks";
 
 const SideBarNavigaion = () => {
   return (
-    <div className="max-w-fit h-screen m-0 p-8">
+    <div className="min-w-fit h-screen m-0 p-8">
       <h1 className="text-4xl font-bold text-center mb-6">CRM APP</h1>
       <div className="space-y-4">
         <NavLinks
@@ -87,7 +87,7 @@ const SideBarNavigaion = () => {
           toLink={"/login"}
         />
       </div>
-      <div className="flex flex-row justify-between place-items-center gap-3 bg-slate-300 fixed bottom-14 px-5 py-3 rounded-xl">
+      <div className="flex flex-row justify-between place-items-center gap-3 bg-slate-100 fixed bottom-5 px-5 py-3 rounded-xl">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"

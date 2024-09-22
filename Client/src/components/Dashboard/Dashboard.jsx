@@ -9,6 +9,7 @@ const Dashboard = () => {
       <UpperNavigaion />
       <Stats />
       <Charts />
+      
     </div>
   )
 }
