@@ -6,12 +6,22 @@ const leadSchema = new mongoose.Schema({
     required: true
   },
   contactInfo: {
-    phone: String,
-    email: String
+    email : {
+      type : String, 
+      required : true
+    },
+    phone : {
+      type : Number,
+      required : true
+    }
   },
   source: {
     type: String,
     required: true
+  },
+  oppertunityName : {
+    type : String,
+    required : true
   },
   status: {
     type: String,
