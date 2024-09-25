@@ -6,22 +6,12 @@ const taskSchema = new mongoose.Schema({
     required: true
   },
   dueDate: {
-    type: Date,
+    type: String,
     required: true
   },
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
-  },
-  relatedTo: {
-    type: mongoose.Schema.Types.ObjectId,
-    refPath: 'onModel',
-    required: true
-  },
-  onModel: {
-    type: String,
-    enum: ['Customer', 'Lead'],
     required: true
   },
   completed: {

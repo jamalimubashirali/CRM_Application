@@ -2,6 +2,7 @@ import express from 'express';
 import { registerUser, userLogin } from '../controllers/userLoginAndRegister.js';
 import { createCustomer, deleteCustomer, getCustomers, updateCustomerData } from '../controllers/customer.js';
 import { createLead , deleteLead, getAllLeads, getLeadById, updateLead } from '../controllers/leads.js';
+import { createTask, deleteTask, getAllTask, getTask, updateTask } from '../controllers/tasks.js';
 
 const router = express.Router();
 
@@ -22,5 +23,11 @@ router.get('/leads/:id' , getLeadById);
 router.patch('/leads/:id' , updateLead);
 router.delete('/leads/:id' , deleteLead);
 
+// Task CRUD Routes
+router.post('/tasks' , createTask);
+router.get('/tasks' , getAllTask);
+router.get('/tasks/:id' , getTask);
+router.patch('/tasks/:id' , updateTask);
+router.delete('/tasks/:id' , deleteTask);
 
 export default router;
