@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTable } from 'react-table';
 
-// Define table columns
+// Table Column Names
 const columns = [
   {
     Header: 'ID',
@@ -24,7 +24,7 @@ const columns = [
     accessor : 'company'
   },
   {
-    Header: 'Actions', // New column for buttons
+    Header: 'Actions',
     Cell: ({ row }) => (
       <div className="flex space-x-2">
         <button
@@ -42,7 +42,7 @@ const columns = [
   },
 ];
 
-
+// Table Component
 const ReactTableComponent = ({data}) => {
   const {
     getTableProps,
@@ -57,7 +57,6 @@ const ReactTableComponent = ({data}) => {
 
   return (
     <div className="overflow-x-auto">
-
       <table
         {...getTableProps()}
         className="min-w-full table-auto border-collapse text-sm"
@@ -105,4 +104,3 @@ const ReactTableComponent = ({data}) => {
 };
 
 export default ReactTableComponent;
-  
