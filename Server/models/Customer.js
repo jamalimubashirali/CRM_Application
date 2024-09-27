@@ -20,29 +20,12 @@ const customerSchema = new mongoose.Schema({
         required : true
     },
     address : {
-        street : {
-            type : String,
-            required : true,
-        },
-        city : {
-            type : String, 
-            required : true,
-        },
-        state : {
-            type : String,
-            required : true,
-        },
-        zipCode : {
-            type : Number,
-            required : true
-        },
+        type : String,
+        required :true,
     },
     industry : {
         type : String,
         required : true
-    },
-    notes : {
-        type : Array, 
     },
     createdAt : {
         type : Date,
