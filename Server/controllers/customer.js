@@ -16,12 +16,9 @@ export const createCustomer = async (req , res) => {
             company,
             industry,
             address,
-            notes,
         });
         await Customer.create(cutomer);
-        res.status(201).json({
-            msg : `Customer with name ${name} is Created`
-        })
+        res.status(201).json(cutomer);
     } catch (error) {
         console.log(error);
     }
@@ -52,10 +49,7 @@ export const updateCustomerData = async (req , res) => {
             })
         }
 
-        res.status(200).json({
-            msg :  `Customer with id ${customerID} is updatesd`,
-            data : updateCustomer
-        });
+        res.status(200).json(updateCustomer);
     } catch (error) {
         console.log(error);
     }
