@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
 import CreateCustomer from "./createCustomer";
@@ -6,7 +6,8 @@ import CreateCustomer from "./createCustomer";
 const ReactTableComponent = ({ data }) => {
   const [currentCustomers, setCurrentCustomers] = useState(data); // State to store customer data
   const [customerModal, setCustomerModal] = useState(false); // State for controlling modal visibility
-  const [customerData , setCustomerData] = useState({});
+  const [customerData, setCustomerData] = useState(null);
+
   // Function to handle customer deletion
   const handleDelete = async (customerId) => {
     try {
@@ -25,10 +26,21 @@ const ReactTableComponent = ({ data }) => {
     }
   };
 
-  const handleUpdate = (customerData) => {
-    setCustomerData(customerData);
+  // Open the modal and pass the customer data to be edited
+  const handleUpdate = (customer) => {
+    setCustomerData(customer);
     setCustomerModal(true);
-  }
+  };
+
+  // Handle updates when the modal closes
+  const handleCustomerUpdated = (updatedCustomer) => {
+    setCurrentCustomers((prevCustomers) =>
+      prevCustomers.map((customer) =>
+        customer._id === updatedCustomer._id ? updatedCustomer : customer
+      )
+    );
+    setCustomerModal(false);
+  };
 
   // Function to handle adding a new customer
   const handleCustomerCreated = (newCustomer) => {
@@ -49,8 +61,10 @@ const ReactTableComponent = ({ data }) => {
         Header: "Actions",
         Cell: ({ row }) => (
           <div className="flex space-x-2">
-            <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-            onClick={() => handleUpdate(row.original)}>
+            <button
+              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              onClick={() => handleUpdate(row.original)}
+            >
               Edit
             </button>
             <button
@@ -70,7 +84,7 @@ const ReactTableComponent = ({ data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
-      data: currentCustomers, 
+      data: currentCustomers,
     });
 
   const openModal = () => setCustomerModal(true);
@@ -139,7 +153,8 @@ const ReactTableComponent = ({ data }) => {
         customerData={customerData}
         isVisible={customerModal}
         onClose={closeModal}
-        onCustomerCreated={handleCustomerCreated} 
+        onCustomerCreated={handleCustomerCreated}
+        onCustomerUpdated={handleCustomerUpdated} // Update customer after modal closes
       />
     </div>
   );

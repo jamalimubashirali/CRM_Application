@@ -1,96 +1,118 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { XIcon } from "@heroicons/react/outline";
-import axios from 'axios';
+import axios from "axios";
 
-const CreateCustomer = ({ customerData, isVisible, onClose , onCustomerCreated }) => {
-
+const CreateCustomer = ({
+  customerData,
+  isVisible,
+  onClose,
+  onCustomerCreated,
+  onCustomerUpdated,
+}) => {
   // States for the fields
   const [name, setName] = useState("");
-  const [email, setEmail] =useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
   const [industry, setIndustry] = useState("");
   const [address, setAddress] = useState("");
-  const [isPatchRequest , setIsPatch] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false); // State to check if we're editing or creating a customer
 
-
-    useEffect(() => {
-      if (customerData) {
-        setName(customerData.name || "");
-        setEmail(customerData.email || "");
-        setPhone(customerData.phone || "");
-        setCompany(customerData.company || "");
-        setIndustry(customerData.industry || "");
-        setAddress(customerData.address || "");
-        setIsPatch(true);
-      } else {
-        // Reset the fields if no customerData is passed
-        resetFields();
-      }
-    }, [customerData]);
-
-    // Method for reseting each field
-    const resetFields = () => {
-        setName("");
-        setEmail("");
-        setPhone("");
-        setCompany("");
-        setIndustry("");
-        setAddress("");
-        setIsPatch(false);
+  // Effect to populate form when editing a customer
+  useEffect(() => {
+    if (customerData) {
+      // Set fields with existing customer data for editing
+      setName(customerData.name || "");
+      setEmail(customerData.email || "");
+      setPhone(customerData.phone || "");
+      setCompany(customerData.company || "");
+      setIndustry(customerData.industry || "");
+      setAddress(customerData.address || "");
+      setIsEditMode(true); // Enable edit mode
+    } else {
+      // Reset fields for creation mode
+      resetFields();
+      setIsEditMode(false);
     }
-    
-  // Method To Create Customer in the database
+  }, [customerData]);
+
+  // Reseting Fields when closing model
+  const resetFields = () => {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setCompany("");
+    setIndustry("");
+    setAddress("");
+    setIsEditMode(false);
+  };
+
+  // Method to create a new customer
   const handleCreateSubmit = async () => {
-      if (name && email && phone && company && industry && address){
-        await axios.post('/api/customer' , {name , email , phone , company , industry , address})
-        .then(
-          (response) => {
-              if(response.status === 201){
-                onClose();
-                onCustomerCreated(response.data);
-                resetFields();
-              }
-          }
-        ).catch((response) => {
-            if(response.status === 400){
-              alert(response.data.msg);
-            }
-        })
-    }  
-    else {
-      alert("Please Fill all the fields");
-    }
-}
-
-  // For handling Updates in the Data
-  const handleUpdateCustomer = async () => {
-    if (name && email && phone && company && industry && address){
-      await axios.patch(`/api/customer/${customerData._id}` , {
-        name, 
-        email,
-        phone,
-        company,
-        industry,
-        address
-      }).then((response) => {
-        if(response.status === 200) {
+    if (name && email && phone && company && industry && address) {
+      try {
+        const response = await axios.post("/api/customer", {
+          name,
+          email,
+          phone,
+          company,
+          industry,
+          address,
+        });
+        if (response.status === 201) {
           onClose();
-          onCustomerCreated(response.data);
+          onCustomerCreated(response.data); // Send new customer to parent
           resetFields();
         }
-      }).catch((response) => {
-        if(response.status === 404) {
-          alert(response.data.msg);
-        }
-      })
-  }  
-  else {
-    alert("Please Fill all the fields");
-  }
-  }
+      } catch (error) {
+        alert("Error creating customer.");
+      }
+    } else {
+      alert("Please fill all the fields.");
+    }
+  };
 
-  // Checking Model visibility
+  // Method to update an existing customer
+  const handleUpdateSubmit = async () => {
+    if (name && email && phone && company && industry && address) {
+      try {
+        const response = await axios.patch(`/api/customer/${customerData._id}`, {
+          name,
+          email,
+          phone,
+          company,
+          industry,
+          address,
+        });
+        if (response.status === 200) {
+          onClose();
+          onCustomerUpdated(response.data); // Send updated customer to parent
+          resetFields();
+        }
+      } catch (error) {
+        alert("Error updating customer.");
+      }
+    } else {
+      alert("Please fill all the fields.");
+    }
+  };
+
+  // Determine whether to create or update based on the mode
+  const handleSubmit = () => {
+    if (isEditMode) {
+      handleUpdateSubmit(); // Edit mode: Update customer
+    } else {
+      handleCreateSubmit(); // Create mode: Create new customer
+    }
+  };
+
+  // Close modal handler
+  const handleClose = () => {
+    resetFields();
+    onClose();
+  };
+
+  // Checking modal visibility
   if (!isVisible) return null;
 
   return (
@@ -98,15 +120,15 @@ const CreateCustomer = ({ customerData, isVisible, onClose , onCustomerCreated }
       <div className="relative bg-white p-8 rounded-lg w-11/12 md:w-2/3 lg:w-1/2">
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
-          onClick={()=>{
-            resetFields();
-            onClose();
-          }}
+          onClick={handleClose}
         >
           <XIcon className="h-6 w-6" />
         </button>
 
-        <h1 className="text-center text-3xl">Enter Customer Details</h1>
+        <h1 className="text-center text-3xl">
+          {isEditMode ? "Update Customer Details" : "Create Customer"}
+        </h1>
+
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 p-5">
           <div>
             <label htmlFor="customer_name">Name</label>
@@ -176,15 +198,11 @@ const CreateCustomer = ({ customerData, isVisible, onClose , onCustomerCreated }
           </div>
         </div>
         <div className="flex justify-end mt-4">
-          <button className="mx-auto py-2 px-4 bg-green-600 text-white rounded-lg"
-          onClick={() => {
-            if(isPatchRequest){
-              handleUpdateCustomer();
-            } else {
-              handleCreateSubmit();
-            }
-          }}>
-            Create Customer
+          <button
+            className="mx-auto py-2 px-4 bg-green-600 text-white rounded-lg"
+            onClick={handleSubmit}
+          >
+            {isEditMode ? "Update Customer" : "Create Customer"}
           </button>
         </div>
       </div>
