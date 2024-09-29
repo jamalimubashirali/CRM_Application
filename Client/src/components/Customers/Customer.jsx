@@ -6,10 +6,9 @@ import axios from 'axios';
 
 const Customer = () => {
   const data = useLoaderData();
-  const [handleCreateCustomer , setHandleCreateCustomer] = useState(false);
   return (
     <div className='w-full flex flex-col p-5 gap-y-10'>
-      <CustomerChart />
+      <CustomerChart data={data}/>
       <ReactTableComponent data = {data}/>
     </div>
   )

@@ -61,7 +61,7 @@ const CreateCustomer = ({
         });
         if (response.status === 201) {
           onClose();
-          onCustomerCreated(response.data); // Send new customer to parent
+          onCustomerCreated(response.data); // Sending new customer to parent Component
           resetFields();
         }
       } catch (error) {
