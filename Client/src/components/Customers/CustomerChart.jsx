@@ -59,11 +59,11 @@ const CustomerChart = ({ data }) => {
       <div className="relative h-96">
         <Line
           data={{
-            labels: dummyDates.map((data) => data.label),
+            labels: chartData.map((data) => data.label),
             datasets: [
               {
                 label: "Customer Activity",
-                data: dummyDates.map((data) => data.value),
+                data: chartData.map((data) => data.data),
                 borderColor: "rgba(75, 192, 192, 1)",
                 backgroundColor: "rgba(75, 192, 192, 0.2)",
                 borderWidth: 2,

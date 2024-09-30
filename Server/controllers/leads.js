@@ -31,10 +31,7 @@ const createLead = async (req, res) => {
 const getAllLeads = async (req, res) => {
   try {
     const allLeads = await Leads.find({});
-    res.status(200).json({
-      msg: "Request Successful",
-      allLeads,
-    });
+    res.status(200).json(allLeads);
   } catch (error) {
     console.error(error);
   }
@@ -49,10 +46,7 @@ const getLeadById = async (req, res) => {
         msg: "No lead Associated to this Id",
       });
     }
-    res.status(200).json({
-      msg: "Success",
-      lead,
-    });
+    res.status(200).json(lead);
   } catch (error) {
     console.error(error);
   }
@@ -71,10 +65,7 @@ const updateLead = async (req, res) => {
                 msg : `The lead with id ${leadId} does not exits`
             });
         }
-        res.status(200).json({
-            msg : `The data updatedSuccessfully`, 
-            updatedLead
-        })
+        res.status(200).json(updatedLead)
     } catch (error) {
         console.error(error)
     }

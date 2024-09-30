@@ -9,6 +9,7 @@ import {
 import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
 import Layout from "./Layout";
 import { getCustomers } from "./components/Customers/Customer";
+import { leadsData } from "./components/Lead Management/Leads";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +22,9 @@ const router = createBrowserRouter([
         loader : getCustomers
       },
       { path: "/tasks", element: <Tasks /> },
-      { path: "/leads", element: <Leads /> },
+      { path: "/leads", element: <Leads /> ,
+        loader : leadsData
+      },
     ],
   },
   { path: "/login", element: <Login /> },
