@@ -5,7 +5,7 @@ const createLead = async (req, res) => {
     const {
       leadName,
       source,
-      contactInfo,
+      email,
       oppertunityName,
       status,
       assignedTo,
@@ -13,7 +13,7 @@ const createLead = async (req, res) => {
     const lead = new Leads({
       leadName,
       source,
-      contactInfo,
+      email,
       oppertunityName,
       status,
       assignedTo,

@@ -21,7 +21,7 @@ const Leads = () => {
   return (
     <div className='w-full flex flex-col p-5 gap-y-10'>
       <LeadsChart />
-      <LeadsTable />
+      <LeadsTable leadsData={data}/>
     </div>
   )
 }
