@@ -1,8 +1,18 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import CreateLead from "./CreateLead";
 import { useTable } from "react-table";
 
 const LeadsTable = ({ leadsData }) => {
+  const [currentLeads , setCurrentLeads] = useState(leadsData);
+  const [isModelOpen, setIsModelOpen] = useState(false);
+
+  const openModel = () => setIsModelOpen(true);
+  const closeModal = () => setIsModelOpen(false);
+
+  const handelLeadCreation = (newLead) => {
+    setCurrentLeads((prevLeads) => [...prevLeads , newLead]);
+    setIsModelOpen(false);
+  }
   // Definiton of Columns for the leads table
   const columns = useMemo(
     () => [
@@ -39,12 +49,13 @@ const LeadsTable = ({ leadsData }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
-      data: leadsData,
+      data: currentLeads,
     });
   return (
     <div className="w-full , gap-y-2">
       <div className="mb-4 flex flex-row justify-between">
-        <button className="px-3 bg-green-600 text-white text rounded-md">
+        <button className="px-3 bg-green-600 text-white text rounded-md"
+        onClick={openModel}>
           Create
         </button>
         <input
@@ -98,7 +109,7 @@ const LeadsTable = ({ leadsData }) => {
         </table>
       </div>
 
-      <CreateLead />
+      <CreateLead isVisible = {isModelOpen} handleLeadCreation={handelLeadCreation} onClose={closeModal}/>
     </div>
   );
 };
