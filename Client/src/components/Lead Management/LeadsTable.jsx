@@ -1,19 +1,24 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useMemo } from "react";
 import CreateLead from "./CreateLead";
 import { useTable } from "react-table";
 
 const LeadsTable = ({ leadsData }) => {
-  const [currentLeads , setCurrentLeads] = useState(leadsData);
-  const [isModelOpen, setIsModelOpen] = useState(false);
+  const [currentLeads, setCurrentLeads] = useState(leadsData); 
+  const [isModelOpen, setIsModelOpen] = useState(false); 
 
-  const openModel = () => setIsModelOpen(true);
+  // Function to open the modal
+  const openModal = () => setIsModelOpen(true);
+
+  // Function to close the modal
   const closeModal = () => setIsModelOpen(false);
 
-  const handelLeadCreation = (newLead) => {
-    setCurrentLeads((prevLeads) => [...prevLeads , newLead]);
-    setIsModelOpen(false);
-  }
-  // Definiton of Columns for the leads table
+  // Function to handle the creation of a new lead
+  const handleLeadCreation = (newLead) => {
+    setCurrentLeads((prevLeads) => [...prevLeads, newLead]); 
+    setIsModelOpen(false); 
+  };
+
+  // Columns definition for the React Table
   const columns = useMemo(
     () => [
       {
@@ -29,7 +34,7 @@ const LeadsTable = ({ leadsData }) => {
         accessor: "email",
       },
       {
-        Header: "Oppertunity Name",
+        Header: "Opportunity Name",
         accessor: "oppertunityName",
       },
       {
@@ -41,22 +46,24 @@ const LeadsTable = ({ leadsData }) => {
         accessor: "status",
       },
     ],
-    [currentLeads]
+    []
   );
 
-
-  // Table creation using useTable hook of react-table
+  // React Table setup
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
       data: currentLeads,
     });
+
   return (
-    <div className="w-full , gap-y-2">
+    <div className="w-full gap-y-2">
       <div className="mb-4 flex flex-row justify-between">
-        <button className="px-3 bg-green-600 text-white text rounded-md"
-        onClick={openModel}>
-          Create
+        <button
+          className="px-3 py-1 bg-green-600 text-white text-xl rounded-md"
+          onClick={openModal}
+        >
+          Create Lead
         </button>
         <input
           className="border-2 border-gray-300 p-2 w-1/3 rounded-xl outline-gray-400 bg-slate-200"
@@ -108,8 +115,11 @@ const LeadsTable = ({ leadsData }) => {
           </tbody>
         </table>
       </div>
-
-      <CreateLead isVisible = {isModelOpen} handleLeadCreation={handelLeadCreation} onClose={closeModal}/>
+      <CreateLead
+        isVisible={isModelOpen}
+        handleLeadCreation={handleLeadCreation}
+        onClose={closeModal}
+      />
     </div>
   );
 };

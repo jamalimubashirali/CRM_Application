@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { XIcon } from "@heroicons/react/outline"; 
 import axios from "axios";
 
-const CreateLead = ({ isVisible, handleLeadCreation, onClose }) => {
+const CreateLead = ({ isVisible, handleLeadCreation , onClose }) => {
   // Checking if the modal is open or not
   if (!isVisible) return null;
 
@@ -23,9 +23,10 @@ const CreateLead = ({ isVisible, handleLeadCreation, onClose }) => {
         status
       })
       if(response.status === 201){
+        onClose()
         handleLeadCreation(response.data)
+        console.log(response.data);
       }
-      onClose()
     } catch (error) {
       console.log(`This error ${error} occured during Lead Creation`);
     }

@@ -19,10 +19,7 @@ const createLead = async (req, res) => {
       assignedTo,
     });
     await Leads.create(lead);
-    res.status(201).json({
-      msg: "Lead Generated SuccessFully",
-      lead,
-    });
+    res.status(201).json(lead);
   } catch (error) {
     console.error(error);
   }
