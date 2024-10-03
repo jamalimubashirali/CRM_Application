@@ -16,11 +16,11 @@ export const leadsData = async () => {
 }
 
 const Leads = () => {
+  // To load the data comming from the database
   const data = useLoaderData();
-  console.log(data);
   return (
     <div className='w-full flex flex-col p-5 gap-y-10'>
-      <LeadsChart />
+      <LeadsChart data={data}/>
       <LeadsTable leadsData={data}/>
     </div>
   )

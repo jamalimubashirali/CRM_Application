@@ -41,7 +41,7 @@ const LeadsTable = ({ leadsData }) => {
         accessor: "status",
       },
     ],
-    []
+    [currentLeads]
   );
 
 
