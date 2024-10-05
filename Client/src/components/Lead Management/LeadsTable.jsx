@@ -14,7 +14,7 @@ const LeadsTable = ({ leadsData }) => {
 
   // Function to handle the creation of a new lead
   const handleLeadCreation = (newLead) => {
-    setCurrentLeads((prevLeads) => [...prevLeads, newLead]); 
+    setCurrentLeads((prevLeads) => [ newLead , ...prevLeads]); 
     setIsModelOpen(false); 
   };
 

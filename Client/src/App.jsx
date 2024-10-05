@@ -10,6 +10,7 @@ import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
 import Layout from "./Layout";
 import { getCustomers } from "./components/Customers/Customer";
 import { leadsData } from "./components/Lead Management/Leads";
+import { taskLoader } from "./components/Task Management/Tasks";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         element: <Customer />,
         loader : getCustomers
       },
-      { path: "/tasks", element: <Tasks /> },
+      { path: "/tasks", element: <Tasks /> , loader : taskLoader },
       { path: "/leads", element: <Leads /> ,
         loader : leadsData
       },

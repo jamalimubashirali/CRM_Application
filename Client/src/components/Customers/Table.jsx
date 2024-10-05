@@ -44,7 +44,7 @@ const ReactTableComponent = ({ data }) => {
 
   // Function to handle adding a new customer
   const handleCustomerCreated = (newCustomer) => {
-    setCurrentCustomers((prevCustomers) => [...prevCustomers, newCustomer]); // Add the new customer to the state
+    setCurrentCustomers((prevCustomers) => [newCustomer , ...prevCustomers]); // Add the new customer to the state
     setCustomerModal(false); // Close modal after customer is created
   };
 

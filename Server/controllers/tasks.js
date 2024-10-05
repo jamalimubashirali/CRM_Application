@@ -16,10 +16,7 @@ const createTask = async (req , res) => {
             dueDate
         });
         await Tasks.create(task);
-        res.status(201).json({
-            msg : "The task created Successfully",
-            task
-        });
+        res.status(201).json(task);
     } catch (error) {
         console.error(error);
     }
@@ -33,11 +30,7 @@ const getAllTask = async (req , res) => {
                 msg : "No any task exits"
             });
         }
-        res.status(200).json({
-            msg : "Success",
-            allTasks
-        }
-        )
+        res.status(200).json(allTasks);
     } catch (error) {
         console.error(error);
     }
@@ -69,15 +62,12 @@ const updateTask = async (req , res) => {
             new : true,
             runValidators : true
         });
-        if(!updateTask) {
+        if(!updatedtask) {
             res.status(404).json({
                 msg : `No found with id ${taskId}`
             })
         }
-        res.status(200).json({
-            msg : 'Task updated Successfully',
-            updateTask
-        })
+        res.status(200).json(updatedtask)
     } catch (error) {
         console.error(error);
     }
@@ -87,7 +77,7 @@ const deleteTask = async (req , res) => {
     try {
         const {id : taskId} = req.params;
         const deletedTask = await Tasks.findOneAndDelete({_id : taskId});
-        if(!deleteTask) {
+        if(!deletedTask) {
             res.status(404).json({
                 msg : `No Task associted to id ${taskId}`,
             });
