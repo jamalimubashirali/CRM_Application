@@ -6,6 +6,12 @@ import '@schedule-x/theme-default/dist/calendar.css';
 
 const TaskScheduler = ({ tasks }) => {
   const [events, setEvents] = useState(tasks);
+  const [eventModel , setEventModel] = useState(false);
+
+  const handleAddedEvent = (newEvent) => {
+    setEvents((prevEvents) => [newEvent , ...events]);
+    setEventModel(false);
+  }
 
   const calendar = useCalendarApp(
     {
