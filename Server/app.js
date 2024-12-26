@@ -25,6 +25,10 @@ const start = async () => {
         await connectDB(process.env.MONGOS_URL).then(() => {
             console.log("Connection Successful!!");
         });
+        app.use(express.static("../Client/dist"));
+        app.get("*" , (req , res) => {
+            res.sendFile(path.resolve(__dirname , "Client" , "dist" , "index.html"))
+        });
         app.listen(port , console.log(`The server is running on ${port}`));
     } catch (error) {
         console.log(error);
